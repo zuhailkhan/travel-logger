@@ -1,4 +1,4 @@
-name: Bun.js CI
+name: Lint (Bun)
 
 on:
   pull_request:
