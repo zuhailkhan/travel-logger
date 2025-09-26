@@ -10,6 +10,7 @@ const isSignedIn = ref<boolean>(false);
       </NuxtLink>
     </div>
     <div class="navbar-end gap-2">
+      <ThemeToggle :icon-size="24" />
       <template v-if="isSignedIn">
         <input
           type="text"
@@ -26,7 +27,6 @@ const isSignedIn = ref<boolean>(false);
         Sign In With Github
         <Icon name="tabler:brand-github" :size="24" />
       </div>
-      <SwapIcon />
     </div>
   </div>
 </template>

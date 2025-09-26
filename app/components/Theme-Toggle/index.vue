@@ -1,16 +1,8 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-// TypeScript type for SwapIcon component props
-type SwapIconProps = {
-  primaryIcon?: string;
-  secondaryIcon?: string;
-  iconSize?: string | number;
-  ariaLabel?: string;
-  class?: string;
-};
+import type { SwapIconProps } from "~/types/types";
 
-// Define props with validation and default values
 const props = withDefaults(defineProps<SwapIconProps>(), {
   primaryIcon: "tabler:sun",
   secondaryIcon: "tabler:moon-stars",
@@ -18,25 +10,37 @@ const props = withDefaults(defineProps<SwapIconProps>(), {
   ariaLabel: "Toggle theme",
 });
 
-// Compute classes to combine default swap classes with custom classes
+const colorMode = useColorMode();
+
 const computedClasses = computed(() => {
   const baseClasses = "swap swap-rotate";
   return props.class ? `${baseClasses} ${props.class}` : baseClasses;
+});
+
+const isDark = computed({
+  get() {
+    return colorMode.value === "dark";
+  },
+  set(value) {
+    colorMode.preference = value ? "dark" : "light";
+  },
 });
 </script>
 
 <template>
   <label :class="computedClasses" :aria-label="ariaLabel">
-    <input type="checkbox" class="sr-only">
+    <input
+      v-model="isDark"
+      type="checkbox"
+      class="sr-only"
+    >
 
-    <!-- Primary Icon (On State) -->
     <div class="swap-on">
       <slot name="primaryIcon">
         <Icon :name="primaryIcon" :size="iconSize" />
       </slot>
     </div>
 
-    <!-- Secondary Icon (Off State) -->
     <div class="swap-off">
       <slot name="secondaryIcon">
         <Icon :name="secondaryIcon" :size="iconSize" />
