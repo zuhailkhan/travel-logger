@@ -26,6 +26,7 @@ const isSignedIn = ref<boolean>(false);
         Sign In With Github
         <Icon name="tabler:brand-github" :size="24" />
       </div>
+      <SwapIcon />
     </div>
   </div>
 </template>
